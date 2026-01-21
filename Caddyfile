@@ -1,0 +1,9 @@
+:8080 {
+    @unauthorized {
+        not header Authorization "Bearer {$BEARER_TOKEN}"
+    }
+
+    respond @unauthorized "Unauthorized" 401
+
+    reverse_proxy canvas-mcp:8080
+}

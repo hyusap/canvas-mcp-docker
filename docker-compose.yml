@@ -1,0 +1,22 @@
+services:
+  canvas-mcp:
+    build: .
+    # Internal only - accessed through auth-proxy
+    expose:
+      - "8080"
+    restart: unless-stopped
+    environment:
+      - CANVAS_API_TOKEN=${CANVAS_API_TOKEN}
+      - CANVAS_DOMAIN=${CANVAS_DOMAIN}
+
+  auth-proxy:
+    image: caddy:alpine
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+    environment:
+      - BEARER_TOKEN=${BEARER_TOKEN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+    depends_on:
+      - canvas-mcp
