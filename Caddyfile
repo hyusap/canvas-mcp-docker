@@ -1,4 +1,18 @@
 :8080 {
+    # Serve favicon without auth
+    handle /favicon.ico {
+        rewrite * /logo.png
+        file_server {
+            root /srv
+        }
+    }
+    handle /favicon.png {
+        rewrite * /logo.png
+        file_server {
+            root /srv
+        }
+    }
+
     @unauthorized {
         not header Authorization "Bearer {$BEARER_TOKEN}"
     }

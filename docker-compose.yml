@@ -18,5 +18,6 @@ services:
       - BEARER_TOKEN=${BEARER_TOKEN}
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./logo.png:/srv/logo.png:ro
     depends_on:
       - canvas-mcp
